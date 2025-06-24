@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
         - name: flask-api
-        # Replace with your project ID
+          # Replace with your project ID
           image: gcr.io/poppy-88/flask-api
           imagePullPolicy: Always
           resources:
