@@ -27,4 +27,7 @@ jobs:
 
       - name: Lint les fichiers YAML
         run: yamllint deployment.yaml service.yaml
-
+        
+      - name: Install Trivy
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
