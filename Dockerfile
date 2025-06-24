@@ -6,7 +6,7 @@ COPY requirements.txt /deploy/
 RUN apk --update add --virtual build-base \
   && python3 -m ensurepip \
   && pip install --upgrade pip \
-  && pip install -r /deploy/requirements.txt 
+  && pip install --no-cache-dir -r /deploy/requirements.txt
 
 WORKDIR /deploy/app
 COPY . /deploy/
