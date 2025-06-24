@@ -11,7 +11,7 @@ spec:
         app: flask-api
     spec:
       containers:
-      - name: flask-api
+        - name: flask-api
         # Replace with your project ID
         image: gcr.io/poppy-88/flask-api
         imagePullPolicy: Always
@@ -23,5 +23,4 @@ spec:
             cpu: 150m
             memory: 100Mi
         ports:
-        - containerPort: 5000
-
+          - containerPort: 5000
