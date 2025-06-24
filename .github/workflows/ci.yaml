@@ -16,18 +16,32 @@ jobs:
 
       - name: Build de l’image Docker
         run: docker build -t flask-k8-example .
-        
+
+      - name: Installation Trivy
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Scan des dépendances avec Trivy
+        run: trivy fs --severity HIGH,CRITICAL --ignore-unfixed --format table --output trivy-deps-report.txt .
+
+      - name: Scan de l’image Docker avec Trivy
+        run: trivy image --severity HIGH,CRITICAL --ignore-unfixed --format table --output trivy-image-report.txt flask-k8-example
+
+      - name: Upload des rapports Trivy
+        uses: actions/upload-artifact@v3
+        with:
+          name: trivy-reports
+          path: |
+            trivy-deps-report.txt
+            trivy-image-report.txt
+
       - name: Lint Dockerfile (Hadolint)
         uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: Dockerfile
-          
+
       - name: Installation de yamllint
         run: pip install yamllint
 
       - name: Lint les fichiers YAML
         run: yamllint deployment.yaml service.yaml
-        
-      - name: Install Trivy
-        run: |
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
