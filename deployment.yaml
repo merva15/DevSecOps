@@ -10,11 +10,15 @@ spec:
       labels:
         app: flask-api
     spec:
+      securityContext:
+        runAsNonRoot: true
       containers:
         - name: flask-api
           # Replace with your project ID
           image: gcr.io/poppy-88/flask-api
           imagePullPolicy: Always
+          securityContext:
+            runAsNonRoot: true
           resources:
             limits:
               cpu: 150m
