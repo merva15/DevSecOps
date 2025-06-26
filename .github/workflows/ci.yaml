@@ -60,3 +60,10 @@ jobs:
 
       - name: Lint les fichiers YAML
         run: yamllint deployment.yaml service.yaml
+        
+      - name: Install Conftest
+        run: |
+         wget https://github.com/open-policy-agent/conftest/releases/download/v0.52.0/conftest_0.52.0_Linux_x86_64.tar.gz
+         tar xzf conftest_0.52.0_Linux_x86_64.tar.gz
+         mv conftest /usr/local/bin/
+
